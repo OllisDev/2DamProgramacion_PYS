@@ -11,6 +11,8 @@ public class EJ1Examen {
         try {
             Process p = pb.start();
 
+
+
             BufferedReader leer = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
 
