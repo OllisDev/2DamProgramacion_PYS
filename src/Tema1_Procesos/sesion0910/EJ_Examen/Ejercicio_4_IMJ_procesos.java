@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Ejercicio_4_IMJ_procesos {
     public static void main(String[] args) throws IOException {
         ProcessBuilder pb = new ProcessBuilder();
-        pb.command("cmd.exe", "/c", "date fecha.txt");
+        pb.command("cmd.exe", "/c", "date");
         pb.redirectOutput(new File("C:/Users/Iker/Desktop/fecha.txt"));
 
         Process p = pb.start();
