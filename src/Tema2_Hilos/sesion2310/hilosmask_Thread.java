@@ -9,7 +9,7 @@ public class hilosmask_Thread extends Thread {
         for(int i = 0; i <= 30; i++) {
             System.out.println(this.getName() + " el contador " + i);
             try {
-                sleep((long) Math.random() * 1000);
+                sleep((long) Math.random());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
