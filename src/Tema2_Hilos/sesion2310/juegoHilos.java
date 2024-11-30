@@ -13,11 +13,11 @@ public class juegoHilos extends Thread {
     public void run() {
         Random random = new Random();
         while (posicion < META) {
-            int avance = random.nextInt(10);
+            int avance = random.nextInt(10); // pueden avanzar de 0 a 10
             posicion += avance;
             mostrarPosicion();
             try {
-                Thread.sleep(random.nextInt(500));
+                Thread.sleep(random.nextInt(500)); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
