@@ -1,4 +1,4 @@
-package Tema2_Hilos.sesion0112.ejerciciosExamen.ejerciciosBasicos.ejercicio2;
+package Tema2_Hilos.sesion0112.ejerciciosExamen.ejercicios.ejercicio2;
 
 public class Cuenta extends Thread {
     private final boolean esProductor;

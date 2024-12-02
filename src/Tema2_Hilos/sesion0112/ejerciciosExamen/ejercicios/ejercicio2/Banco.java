@@ -1,4 +1,4 @@
-package Tema2_Hilos.sesion0112.ejerciciosExamen.ejerciciosBasicos.ejercicio2;
+package Tema2_Hilos.sesion0112.ejerciciosExamen.ejercicios.ejercicio2;
 /*
 Ejercicio 2: Un banco maneja transferencias entre cuentas mediante un sistema compartido.
 Los productores son las transacciones entrantes, que aumentan el saldo de las cuentas, y los consumidores son las transferencias salientes, que lo disminuyen.

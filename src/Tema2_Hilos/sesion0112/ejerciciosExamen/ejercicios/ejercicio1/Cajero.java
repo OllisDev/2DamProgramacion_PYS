@@ -1,4 +1,4 @@
-package Tema2_Hilos.sesion0112.ejerciciosExamen.ejerciciosBasicos.ejercicio1;
+package Tema2_Hilos.sesion0112.ejerciciosExamen.ejercicios.ejercicio1;
 
 /*
 Ejercicio 1: Un banco tiene un cajero automático que funciona como un sistema productor-consumidor.

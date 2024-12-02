@@ -1,4 +1,4 @@
-package Tema2_Hilos.sesion0112.ejerciciosExamen.ejerciciosBasicos.ejercicio1;
+package Tema2_Hilos.sesion0112.ejerciciosExamen.ejercicios.ejercicio1;
 
 public class Banco extends Thread {
     private Cajero cajero;
