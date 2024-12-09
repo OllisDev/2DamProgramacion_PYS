@@ -1,9 +1,6 @@
 package Tema3_Sockets.sesion0712.Chat_Cliente_Servidor;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -19,31 +16,56 @@ public class ServidorChat {
                 // Aceptar conexiones
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
-
-                // Flujos de entrada y salida
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-
-                // Leer mensaje del cliente
-                String clientMessage;
-                while ((clientMessage = in.readLine()) != null) {
-                    System.out.println("Mensaje recibido: " + clientMessage);
-
-                    if (clientMessage.equals("FIN")) {
-                        System.out.println("El cliente solicitó terminar la conexión");
-                        break;
-                    }
-
-                    // Responder al cliente
-                    out.println("Mensaje recibido: " + clientMessage);
-                }
-
-                // Cerrar la conexión con el cliente
-                clientSocket.close();
-                System.out.println("Conexión cerrada con el cliente.");
+                new Thread(new conexionCliente(clientSocket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+}
+
+// Clase para manejar la conexion de múltiples clientes que se conectan al servidor mediante la creacion de un hilo separado
+class conexionCliente implements Runnable {
+    private final Socket socketCliente;
+
+    // Constructor
+    public conexionCliente(Socket socketCliente) {
+        this.socketCliente = socketCliente;
+    }
+
+    @Override
+    public void run() {
+        // Flujos de entrada y salida
+        try(BufferedReader in = new BufferedReader(new InputStreamReader(socketCliente.getInputStream()));
+            PrintWriter out = new PrintWriter(socketCliente.getOutputStream(), true)
+            ) {
+            // Leer mensaje del cliente
+            String clientMessage;
+            while ((clientMessage = in.readLine()) != null) {
+                System.out.println("Mensaje recibido: " + clientMessage);
+
+                if (clientMessage.equals("FIN")) {
+                    System.out.println("El cliente solicitó terminar la conexión");
+                    break;
+                }
+
+                // Responder al cliente
+                out.println("Mensaje recibido: " + clientMessage);
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Cerrar la conexión con el cliente
+                socketCliente.close();
+                System.out.println("Conexión cerrada con el cliente.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

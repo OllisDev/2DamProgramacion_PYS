@@ -17,21 +17,32 @@ public class ClienteChat {
             // Flujos de entrada y salida
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            String salida = "";
-            do {
-                System.out.println("Escribe un mensaje o finaliza la conversación poniendo FIN: ");
-                Scanner sc = new Scanner(System.in);
-                salida = sc.nextLine();
-                out.println(salida);
-                System.out.println("Mensaje enviado: " + salida);
 
-                if (!salida.equals("FIN")) {
-                    String respuestaServidor = in.readLine();
-                    System.out.println("Respuesta del servidor: " + respuestaServidor);
+            // Hilo para escuchar los mensajes del servidor, es decir, el cliente va recibir mensajes del servidor sin que haya un bloqueo durante el programa
+            Thread escucharMensajes = new Thread(() -> {
+                try {
+                    String mensajesServidor;
+                    while ((mensajesServidor = in.readLine()) != null) { // Leer los mensajes linea a linea mediante la iteración de cada mensaje que recibimos del servidor
+                        System.out.println("Servidor: " + mensajesServidor);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } while (!salida.equals("FIN"));
+            });
+            escucharMensajes.start(); // Inicio del hilo
+
+            Scanner sc = new Scanner(System.in);
+            String mensaje;
+
+            do {
+                System.out.println("Tu: ");
+                mensaje = sc.nextLine();
+                out.println(mensaje);
+
+            } while (!mensaje.equals("FIN")); // Bucle de mandar mensajes al servidor hasta que ponemos FIN y sale del bucle y se desconecta del servidor el cliente.
 
             System.out.println("Desconexión del servidor...");
+            sc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
