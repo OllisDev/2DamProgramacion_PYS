@@ -14,22 +14,10 @@ public class ClienteChat {
 
         try (Socket socket = new Socket(serverAddress, port)) {
             System.out.println("Conectado al servidor");
+
             // Flujos de entrada y salida
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-            // Hilo para escuchar los mensajes del servidor, es decir, el cliente va recibir mensajes del servidor sin que haya un bloqueo durante el programa
-            Thread escucharMensajes = new Thread(() -> {
-                try {
-                    String mensajesServidor;
-                    while ((mensajesServidor = in.readLine()) != null) { // Leer los mensajes linea a linea mediante la iteración de cada mensaje que recibimos del servidor
-                        System.out.println("Servidor: " + mensajesServidor);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            escucharMensajes.start(); // Inicio del hilo
 
             Scanner sc = new Scanner(System.in);
             String mensaje;
