@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Cliente {
     public static void main(String[] args) {
-        String serverAddress = "192.168.20.220"; // Dirección del servidor
+        String serverAddress = "localhost"; // Dirección del servidor
         int port = 12345; // Puerto del ervidor
 
         try (Socket socket = new Socket(serverAddress, port)) {
