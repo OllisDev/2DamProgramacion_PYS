@@ -23,7 +23,7 @@ public class ServerLog {
             while ((mensaje = in.readLine()) != null) {
                 System.out.println("Mensaje recibido: " + mensaje);
 
-                guardarLog(mensaje);
+                guardarLog(mensaje); // LLamada al metodo guardarLog
 
                 out.println("Echo: " + mensaje);
             }
@@ -35,11 +35,12 @@ public class ServerLog {
         }
     }
 
+    // Metodo para guardar el mensaje en un log mediante el recibo del cliente
     private static void guardarLog(String mensaje) {
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        String logEntry = timestamp + " - " + mensaje;
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()); // Formatear la fecha de cuando se envia el mensaje
+        String logEntry = timestamp + " - " + mensaje; // Variable que contiene el formateo de la fecha y el mensaje
 
-        try (PrintWriter out = new PrintWriter(new FileWriter("log.txt", true))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter("log.txt", true))) { // Crear el fichero log.txt con el contenido del mensaje
             out.println(logEntry);
         } catch (IOException e) {
             System.out.println("Error al guardar el log: " + e.getMessage());
